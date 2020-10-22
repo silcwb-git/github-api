@@ -12,7 +12,7 @@ import {
 
 function Table() {
   const [project, setProjects] = useState([]);
-  const [total, setTotal] = useState(0);
+  const [total] = useState(0);
   const [limit, setLimit] = useState(5);
   const [pages, setPages] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -23,17 +23,13 @@ function Table() {
           const api = async () => {
               const response = await fetch('https://api.github.com/users/globocom/repos');
               const data = await response.json();
-
               return data;
           }
-  
           const api_data = await api();
-  
           console.log(api_data);
   
       }
       
-     // setTotal(api.headers["x-total-count"]);
       const totalPages = Math.ceil(total / limit);
 
       const arrayPages = [];
@@ -46,7 +42,7 @@ function Table() {
     }
 
     loadProjects();
-  }, [currentPage, limit, total]);
+  }, [currentPage, limit]);
 
   const limits = useCallback((e) => {
     setLimit(e.target.value);
